@@ -6,14 +6,21 @@ let emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
 const formatDatatoSend = (user) => {
   const access_token = jwt.sign(
-    { id: user._id },
-    process.env.SECRET_ACCESS_KEY
+    { id: user._id, role: user.role },
+    process.env.SECRET_ACCESS_KEY,
+    { expiresIn: "7d" }
   );
   return {
     access_token,
-    profile_img: user.profile_img,
+    id: user._id,
     username: user.username,
+    profile_img: user.profile_img,
     role: user.role,
+    email: user.email,
+    blogs: user.blogs,
+    products: user.products,
+    cart: user.cart,
+    orders: user.orders,
   };
 };
 

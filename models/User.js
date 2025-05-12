@@ -1,5 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
+const generateAvatar = (username = "user") => {
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    username
+  )}&background=random&color=ffffff&bold=true`;
+};
+
 const userSchema = mongoose.Schema(
   {
     username: {
@@ -24,6 +30,9 @@ const userSchema = mongoose.Schema(
 
     profile_img: {
       type: String,
+      default: function () {
+        return generateAvatar(this.username);
+      },
     },
 
     role: {
